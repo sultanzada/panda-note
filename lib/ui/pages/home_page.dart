@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../widgets/appBar.dart';
 import '../widgets/appBarUserProfilePic.dart';
 import '../widgets/change_theme_mode.dart';
 import '../widgets/dateBarContainer.dart';
@@ -12,12 +13,15 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     DateTime _selectedDate = DateTime.now();
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: context.theme.colorScheme.background,
-        leading: ChangeThemeMode(),
-        actions: [
-          AppBarUserProfilePic(),
-        ],
+      backgroundColor: context.theme.colorScheme.background,
+      appBar: PreferredSize(
+        child: MyAppBar(
+          leading: ChangeThemeMode(),
+          actions: [
+            AppBarUserProfilePic(),
+          ],
+        ),
+        preferredSize: Size.fromHeight(kToolbarHeight),
       ),
       body: Column(
         children: [

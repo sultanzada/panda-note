@@ -63,10 +63,13 @@ class MyInputFormField extends StatelessWidget {
               prefixIcon: prefixIcon,
               suffixIcon: suffixIcon,
               hintText: hint,
-              hintStyle: subTitleStyle,
+              hintStyle: hintTextStyle,
               contentPadding: EdgeInsets.symmetric(
                 horizontal: 14.0,
                 vertical: 14.0,
+              ),
+              border: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.transparent),
               ),
               focusedBorder: formBorder,
               enabledBorder: formBorder,

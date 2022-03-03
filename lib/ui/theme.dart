@@ -23,7 +23,6 @@ class Themes {
       cursorColor: Colors.grey[700],
       selectionHandleColor: Colors.grey.withOpacity(1),
     ),
-    scaffoldBackgroundColor: white,
     appBarTheme: AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle.dark,
       elevation: 0,
@@ -31,7 +30,7 @@ class Themes {
   );
   static final dark = ThemeData(
     colorScheme: ColorScheme.dark().copyWith(
-      primary: darkGreyClr,
+      primary: primaryClr,
       brightness: Brightness.dark,
       background: darkGreyClr,
     ),
@@ -40,7 +39,6 @@ class Themes {
       cursorColor: Colors.grey[100],
       selectionHandleColor: Colors.grey[100].withOpacity(1),
     ),
-    scaffoldBackgroundColor: darkGreyClr,
     appBarTheme: AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle.light,
       elevation: 0,
@@ -79,6 +77,16 @@ TextStyle get titleStyle {
   );
 }
 
+TextStyle get hintTextStyle {
+  return GoogleFonts.lato(
+    textStyle: TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      color: Colors.grey,
+    ),
+  );
+}
+
 TextStyle get subTitleStyle {
   return GoogleFonts.lato(
     textStyle: TextStyle(
@@ -91,7 +99,7 @@ TextStyle get subTitleStyle {
 
 OutlineInputBorder get formBorder {
   return OutlineInputBorder(
-    borderRadius: BorderRadius.circular(12.0),
+    borderRadius: BorderRadius.circular(5.0),
     borderSide: BorderSide(
       color: Colors.grey,
       width: 1.0,
