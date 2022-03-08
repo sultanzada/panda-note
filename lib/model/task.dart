@@ -27,27 +27,27 @@ class Task {
     id = json['id'];
     title = json['title'];
     note = json['note'];
-    isCompleted = json['isCompleted'];
     date = json['date'];
     startTime = json['startTime'];
     endTime = json['endTime'];
     color = json['color'];
     remind = json['remind'];
     repeat = json['repeat'];
+    isCompleted = json['isCompleted'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    var data = Map<String, dynamic>();
     data['id'] = this.id;
     data['title'] = this.title;
     data['note'] = this.note;
-    data['isCompleted'] = this.isCompleted;
     data['date'] = this.date;
     data['startTime'] = this.startTime;
     data['endTime'] = this.endTime;
     data['color'] = this.color;
     data['remind'] = this.remind;
-    data['remind'] = this.remind;
+    data['repeat'] = this.repeat;
+    data['isCompleted'] = this.isCompleted;
     return data;
   }
 }

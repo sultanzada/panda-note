@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:panda/controller/task_controller.dart';
+import 'package:panda/model/task.dart';
 import 'package:panda/services/dateAndTime.dart';
 import 'package:panda/ui/widgets/appBar.dart';
 import 'package:panda/ui/widgets/button.dart';
@@ -17,6 +19,7 @@ class AddTaskPage extends StatefulWidget {
 
 class _AddTaskPageState extends State<AddTaskPage> {
   final _formKey = GlobalKey<FormState>();
+  TaskController _taskController;
   TextEditingController _titleController;
   TextEditingController _noteController;
   DateAndTime dateAndTime;
@@ -35,7 +38,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
     FocusManager.instance.primaryFocus.unfocus();
     if (form.validate()) {
       print('Form is valid');
-      Get.back();
+      _addTaskToDB();
     } else {
       print('Form is invalid');
     }
@@ -44,6 +47,9 @@ class _AddTaskPageState extends State<AddTaskPage> {
   @override
   void initState() {
     super.initState();
+    _taskController = Get.put(TaskController());
+    _titleController = TextEditingController();
+    _noteController = TextEditingController();
     _currentDate = DateTime.now();
     _startTime = DateFormat('hh:mm a').format(DateTime.now()).toString();
     _endTime = _startTime;
@@ -102,7 +108,11 @@ class _AddTaskPageState extends State<AddTaskPage> {
                     hint: DateFormat.yMd().format(_currentDate),
                     suffixIcon: IconButton(
                       onPressed: () {
-                        dateAndTime.getDateFromUser(context);
+                        dateAndTime.getDateFromUser(context).then((date) {
+                          setState(() {
+                            _currentDate = date;
+                          });
+                        });
                       },
                       icon: Icon(
                         Icons.calendar_today_outlined,
@@ -315,6 +325,36 @@ class _AddTaskPageState extends State<AddTaskPage> {
         ),
       ],
     );
+  }
+
+  _addTaskToDB() async {
+    await _taskController
+        .addTask(
+      task: Task(
+        title: _titleController.text,
+        note: _noteController.text,
+        date: DateFormat.yMd().format(_currentDate),
+        startTime: _startTime,
+        endTime: _endTime,
+        remind: _selectedRemind,
+        repeat: _selectedRepeat,
+        color: _selectedColor,
+        isCompleted: 0,
+      ),
+    )
+        .then((value) {
+      print('my id is: $value');
+      Get.back();
+    });
+
+    print('Ramin check the title ${_titleController.text}');
+    print('Ramin check the note ${_noteController.text}');
+    print('Ramin check the date ${DateFormat.yMd().format(_currentDate)}');
+    print('Ramin check the startTime $_startTime');
+    print('Ramin check the endTime $_endTime');
+    print('Ramin check the repeat $_selectedRepeat');
+    print('Ramin check the remind $_selectedRemind');
+    print('Ramin check the color $_selectedColor');
   }
 }
 
